@@ -1,0 +1,8 @@
+POST http://192.168.1.1/boaform/formFilter
+Content-Type: application/x-www-form-urlencoded
+
+protocol=1&filterMode=Deny&sip=128.127.105.184&smask=&sfromPort=&stoPort=&dip=&dmask=&dfromPort=&dtoPort=&addFilterIpPort=Add&submit-url=%2Ffw-ipportfilter_rg.asp&postSecurityFlag=7994
+
+<> 2022-06-26T230854.200.html
+
+###

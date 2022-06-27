@@ -40,19 +40,9 @@ class StavixController extends Controller
             'postSecurityFlag' => '7994',
         ];
 
-        $response = Http::retry(3, 1000, function ($exception, $request) {
-            // Em caso de não houver login no navegador o sistema cria uma sessão
-            $resp = Http::withBody(
-                'challenge=&username=admin&password=apartamento36&save=Login&submit-url=%2Fadmin%2Flogin.asp&postSecurityFlag=44603', 'application/x-www-form-urlencoded'
-            )->post('http://192.168.1.1/boaform/admin/formLogin');
-
-            if ($resp->successful()) {
-                return true;
-            }
-        })
-            ->withBody(
-                "protocol=1&filterMode=Deny&sip={$ip}&smask=&sfromPort=&stoPort=&dip=&dmask=&dfromPort=&dtoPort=&addFilterIpPort=Add&submit-url=%2Ffw-ipportfilter_rg.asp&postSecurityFlag=7994", 'application/x-www-form-urlencoded'
-            )->post('http://192.168.1.1/boaform/formFilter');
+        $response = Http::withBody(
+            "protocol=1&filterMode=Deny&sip={$ip}&smask=&sfromPort=&stoPort=&dip=&dmask=&dfromPort=&dtoPort=&addFilterIpPort=Add&submit-url=%2Ffw-ipportfilter_rg.asp&postSecurityFlag=7994", 'application/x-www-form-urlencoded'
+        )->post('http://192.168.1.1/boaform/formFilter');
 
 
         if ($response->failed()) {
@@ -72,12 +62,13 @@ class StavixController extends Controller
 
         $content = $dom->getElementsByTagName('h4');
 
-        if ($content[0]->textContent === "Invaild! This is a duplicate or conflicting rule!") {
+        if ($content->length && $content[0]->textContent === "Invaild! This is a duplicate or conflicting rule!") {
             //o ip já existe na lista de bloqueio
             dd(
                 'o ip já existe na lista de bloqueio',
                 $response->body(),
                 $dom,
+                $content->length,
                 $content[0]->textContent === "Invaild! This is a duplicate or conflicting rule!"
             );
         }
@@ -85,7 +76,7 @@ class StavixController extends Controller
         dd(
             $response->body(),
             $dom,
-            $content[0]->textContent === "Invaild! This is a duplicate or conflicting rule!"
+            $content->length
         );
     }
 }

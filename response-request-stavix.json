@@ -1,0 +1,15 @@
+{
+    "protocol": "1",
+    "filterMode": "Deny",
+    "sip": "128.127.105.184",
+    "smask": null,
+    "sfromPort": null,
+    "stoPort": null,
+    "dip": null,
+    "dmask": null,
+    "dfromPort": null,
+    "dtoPort": null,
+    "addFilterIpPort": "Add",
+    "submit-url": "\/fw-ipportfilter_rg.asp",
+    "postSecurityFlag": "7994"
+}

@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::get('stavix', [\App\Http\Controllers\StavixController::class, 'index']);
 Route::post('stavix', [\App\Http\Controllers\StavixController::class, 'store']);
+Route::get('stavix/post', [\App\Http\Controllers\StavixController::class, 'sendRequest']);
